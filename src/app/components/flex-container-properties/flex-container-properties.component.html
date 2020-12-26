@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{data.item}} properties</h1>
+<div mat-dialog-content >
+  
+  <form [formGroup]="propertiesForm" class="container">
+    <div class="row">
+      <mat-form-field appearance="outline" class="u-mr-10" >
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="item">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" >
+        <mat-label>Flex direction:</mat-label>
+        <mat-select formControlName="flexDirection">
+          <mat-option *ngFor="let flexDirection of flexDirectionLov" 
+          [value]="flexDirection">  {{flexDirection}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="u-mr-10">
+        <mat-label>Flex wrap</mat-label>
+        <mat-select formControlName="flexWrap">
+          <mat-option *ngFor="let flexWrap of flexWrapLov" 
+          [value]="flexWrap">  {{flexWrap}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>Justify content (along the main axis)</mat-label>
+        <mat-select formControlName="alignItems">
+          <mat-option *ngFor="let alignItems of alignItemsLov" 
+          [value]="alignItems">  {{alignItems}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="u-mr-10">
+        <mat-label>Align items (along the cross axis)</mat-label>
+        <mat-select formControlName="justifyContent"> 
+          <mat-option *ngFor="let justifyContent of justifyContentLov" 
+          [value]="justifyContent">  {{justifyContent}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>Align content </mat-label>
+        <mat-select formControlName="alignContent"> 
+          <mat-option *ngFor="let alignContent of alignContentLov" 
+          [value]="alignContent">  {{alignContent}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="propertiesForm.getRawValue()" cdkFocusInitial>Ok</button>
+</div>

@@ -1,0 +1,105 @@
+
+<div class="container">
+
+  
+  <div class="tree-container">
+
+    <div class="add-control-container">
+      <mat-form-field appearance="outline">
+        <mat-label> Control name</mat-label>
+        <input #input matInput>
+      </mat-form-field>
+      <button mat-button (click)="addControl(input.value)">Add</button>
+    </div>
+
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node"
+                    matTreeNodeToggle
+                    matTreeNodePadding
+                    [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                                'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                                'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
+                    draggable="true" 
+                    (dragstart)="handleDragStart($event, node);"
+                    (dragover)="handleDragOver($event, node);"
+                    (drop)="handleDrop($event, node);"
+                    (dragend)="handleDragEnd($event);">
+        <button mat-icon-button disabled>
+          <ng-container *ngIf="isFlexContainer(node)">
+            <mat-icon class="mat-icon-rtl-mirror">
+              account_balance
+            </mat-icon>
+          </ng-container>
+          <ng-container *ngIf="!isFlexContainer(node)">
+            <mat-icon class="mat-icon-rtl-mirror">
+              turned_in_not
+            </mat-icon>
+          </ng-container>
+        </button>
+        {{node.item}}
+            <ng-container *ngIf="isFlexContainer(node)">
+              <button mat-icon-button (click)="addNewItem(node)" disableRipple class="u-mg-lf-5"><mat-icon>add_to_queue</mat-icon></button>
+              <button mat-icon-button (click)="deleteExistingItem(node)" disableRipple class="u-mg-lf-5"><mat-icon>remove_from_queue</mat-icon></button>
+              <button mat-icon-button (click)="displayProperties(node)" disableRipple class="u-mg-lf-5"><mat-icon>settings</mat-icon></button>
+            </ng-container>                  
+      </mat-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+        <button mat-icon-button disabled>
+          
+        </button>
+        <mat-form-field>
+          <input matInput #itemValue placeholder="New item...">
+        </mat-form-field>
+        <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+        <button mat-button (click)="cancelSaveNode(node, itemValue.value)">Cancel</button>
+      </mat-tree-node>
+
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
+                    matTreeNodePadding
+                    [ngClass]="{'drop-above': dragNodeExpandOverArea === 'above' && dragNodeExpandOverNode === node,
+                                  'drop-below': dragNodeExpandOverArea === 'below' && dragNodeExpandOverNode === node,
+                                  'drop-center': dragNodeExpandOverArea === 'center' && dragNodeExpandOverNode === node}"
+                      draggable="true"
+                      (click)="onClick($event,node)"
+                      (dragstart)="handleDragStart($event, node);"
+                      (dragover)="handleDragOver($event, node);"
+                      (drop)="handleDrop($event, node);"
+                      (dragend)="handleDragEnd($event);">
+        <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'toggle ' + node.filename">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node.item}}
+          <ng-container *ngIf="isFlexContainer(node)">
+            <button mat-icon-button (click)="addNewItem(node)" disableRipple class="u-mg-lf-5"><mat-icon>add_to_queue</mat-icon></button>
+            <button mat-icon-button (click)="deleteExistingItem(node)" disableRipple class="u-mg-lf-5"><mat-icon>remove_from_queue</mat-icon></button>
+            <button mat-icon-button (click)="displayProperties(node)" disableRipple class="u-mg-lf-5"> <mat-icon>settings</mat-icon></button>
+          </ng-container>
+      </mat-tree-node>
+    </mat-tree>
+
+  
+    <span #emptyItem></span>
+
+  
+  <div class="css">
+    <pre>{{css}}</pre>
+  </div>
+  
+  <div class="html">
+    <pre>{{html}}</pre>
+  </div>
+  
+  </div>
+
+
+
+<!-- <div class="flex-window"> -->
+  <app-flex-window #flexWindow [width]="300" [height]="300" [left]="100" [top]="20"></app-flex-window>
+<!-- </div> -->
+
+</div>
+

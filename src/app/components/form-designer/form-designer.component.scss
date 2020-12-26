@@ -1,0 +1,47 @@
+.drop-above {
+  border-top: 10px solid #dddddd;
+  margin-top: -10px;
+}
+
+.drop-below {
+  border-bottom: 10px solid #dddddd;
+  margin-bottom: -10px;
+}
+
+.drop-center {
+  background-color: #dddddd;
+}
+
+.mat-tree-node {
+  display: flex;
+  align-items: baseline;
+  min-height: 30px,
+}
+
+.mat-icon-button {
+  width: 24px;
+  height: 24px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.tree-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-window {
+  margin: 20px;
+  width: 500px;
+  height: 300px;
+  border: 1px solid rgb(100, 95, 95);
+}
+
+.u-mg-lf-5 {
+  margin-left: 5px;
+}
